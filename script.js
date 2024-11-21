@@ -68,6 +68,12 @@ function processFileContent(content, fileName) {
         }
     });
 
+    // Check if the file is abnormal
+    if (excessCount >= 5000 || lackingCount >= 5000) {
+        alert(`This file (${fileName}) is abnormal and will be skipped.`);
+        return; // Skip processing this file
+    }
+
     document.getElementById(`excessCount-${fileName}`).innerText = excessCount;
     document.getElementById(`lackingCount-${fileName}`).innerText = lackingCount;
     displayLines(excessLines, `excessLines-${fileName}`);
@@ -80,6 +86,7 @@ function processFileContent(content, fileName) {
         document.getElementById('downloadButton').disabled = false;
     }
 }
+
 
 function displayLines(lines, elementId) {
     const element = document.getElementById(elementId);
